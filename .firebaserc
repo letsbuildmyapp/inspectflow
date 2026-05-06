@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "inspectflow-demo"
+  },
+  "targets": {
+    "inspectflow-demo": {
+      "hosting": {
+        "staging": ["inspectflow-staging"],
+        "prod": ["inspectflow"]
+      }
+    }
+  }
+}

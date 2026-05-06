@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
+  }
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-paper text-ink font-sans antialiased text-base;
+    line-height: 1.5;
+    background-image:
+      linear-gradient(oklch(0.15 0 0 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.15 0 0 / 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  /* Mono baseline: tabular figures + slightly looser leading for breathing room */
+  code, kbd, pre, samp, .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+  .font-mono {
+    line-height: 1.55;
+  }
+  /* Cap body paragraph line length for readability */
+  .prose-cap p { max-width: 65ch; }
+  .dark body {
+    @apply bg-ink text-paper;
+    background-image:
+      linear-gradient(oklch(1 0 0 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 0.05) 1px, transparent 1px);
+  }
+  *:focus-visible {
+    @apply outline-none ring-2 ring-hazard ring-offset-2 ring-offset-paper;
+  }
+  .dark *:focus-visible {
+    @apply ring-offset-ink;
+  }
+  ::selection {
+    @apply bg-hazard text-ink;
+  }
+}
+
+@layer components {
+  .brut-card {
+    @apply bg-paper dark:bg-coal border-3 border-ink dark:border-paper rounded-none shadow-brut;
+  }
+  .brut-btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 border-3 border-ink dark:border-paper bg-paper dark:bg-coal text-ink dark:text-paper font-mono font-bold uppercase tracking-wider text-sm rounded-none shadow-brut hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutLg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all disabled:opacity-50 disabled:pointer-events-none min-h-[44px];
+  }
+  .brut-btn-primary {
+    @apply brut-btn bg-hazard text-ink hover:bg-hazardDeep dark:bg-hazard dark:text-ink;
+  }
+  .brut-btn-danger {
+    @apply brut-btn bg-warn text-paper;
+  }
+  .brut-icon-btn {
+    @apply inline-grid place-items-center h-11 w-11 border-3 border-ink dark:border-paper bg-paper dark:bg-coal text-ink dark:text-paper rounded-none shadow-brut hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutLg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .brut-input {
+    @apply w-full px-3 py-2 bg-paper dark:bg-ink border-3 border-ink dark:border-paper rounded-none font-mono text-ink dark:text-paper;
+  }
+  .brut-input::placeholder { color: oklch(0.15 0 0 / 0.4); }
+  .dark .brut-input::placeholder { color: oklch(0.99 0 0 / 0.4); }
+  .brut-label {
+    @apply block font-mono text-xs font-bold uppercase tracking-widest mb-1 text-ink/80 dark:text-paper/80;
+  }
+  .brut-tag {
+    @apply inline-flex items-center px-2 py-0.5 border-2 border-ink dark:border-paper rounded-none font-mono text-xs uppercase tracking-wider;
+  }
+  .mono-eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-ink/60 dark:text-paper/60;
+  }
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: oklch(0.15 0 0); border: 2px solid oklch(0.99 0 0); }
+.dark ::-webkit-scrollbar-thumb { background: oklch(0.99 0 0); border-color: oklch(0.15 0 0); }

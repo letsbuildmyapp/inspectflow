@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() { return request.auth != null; }
+    function userRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    function isAdmin() { return isSignedIn() && userRole() == 'admin'; }
+    function isManager() { return isSignedIn() && (userRole() == 'manager' || userRole() == 'admin'); }
+    function isInspector() { return isSignedIn() && (userRole() == 'inspector' || userRole() == 'admin'); }
+
+    // Users — readable to authed; only admin can write someone else's
+    match /users/{uid} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.auth.uid == uid;
+      allow update: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // Properties — managers + admins write; all signed-in read
+    match /properties/{pid} {
+      allow read: if isSignedIn();
+      allow write: if isManager();
+
+      match /units/{uid} {
+        allow read: if isSignedIn();
+        allow write: if isManager();
+      }
+    }
+
+    // Inspections — inspectors + managers write; assigned inspector can update own
+    match /inspections/{iid} {
+      allow read: if isSignedIn();
+      allow create: if isManager();
+      allow update: if isManager() || (isInspector() && resource.data.inspectorId == request.auth.uid);
+      allow delete: if isManager();
+    }
+
+    // Tickets — anyone signed in can read; inspector creates from inspection;
+    // assignee or manager updates
+    match /tickets/{tid} {
+      allow read: if isSignedIn();
+      allow create: if isInspector() || isManager();
+      allow update: if isManager()
+        || (isSignedIn() && resource.data.assigneeId == request.auth.uid)
+        || (isSignedIn() && resource.data.createdBy == request.auth.uid);
+      allow delete: if isManager();
+    }
+  }
+}
