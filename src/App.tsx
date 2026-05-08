@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 import { AuthProvider, useAuth } from '@/lib/auth';
+import { ScrollToTop } from '@/components/ScrollToTop';
 import { ThemeProvider } from '@/lib/theme';
 import { AppShell } from '@/components/AppShell';
 import { Tutorial } from '@/components/Tutorial';
@@ -50,6 +51,7 @@ export default function App() {
       <QueryClientProvider client={qc}>
         <AuthProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />

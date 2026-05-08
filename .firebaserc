@@ -1,13 +1,19 @@
 {
   "projects": {
-    "default": "inspectflow-demo"
+    "default": "inspectflow-lbma",
+    "demo": "inspectflow-demo"
   },
   "targets": {
-    "inspectflow-demo": {
+    "inspectflow-lbma": {
       "hosting": {
-        "staging": ["inspectflow-staging"],
-        "prod": ["inspectflow"]
+        "staging": [
+          "inspectflow-lbma-staging"
+        ],
+        "prod": [
+          "inspectflow-lbma-prod"
+        ]
       }
     }
-  }
+  },
+  "etags": {}
 }
