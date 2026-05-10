@@ -55,20 +55,8 @@ export function Login() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-paper text-ink">
-      <header className="relative z-10 flex items-center justify-between px-6 py-5 sm:px-10">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-hazard border-2 border-ink grid place-items-center font-mono font-extrabold text-ink text-xs">IF</div>
-          <span className="font-mono font-bold tracking-tight">INSPECT/FLOW</span>
-        </Link>
-        <span className="font-mono text-xs">
-          Need help?{' '}
-          <a href="mailto:hello@letsbuildmyapp.com?subject=InspectFlow%20support" className="text-ink underline-offset-4 hover:underline">
-            Contact support
-          </a>
-        </span>
-      </header>
 
-      <main className="relative z-10 flex flex-1 items-center justify-center px-6 py-10">
+      <main className="relative z-10 flex flex-1 items-start justify-center px-6 pt-8 sm:pt-12 pb-10">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
