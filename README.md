@@ -16,12 +16,12 @@ Niche: residential property management (multi-family rentals + light commercial)
 
 ## Stack
 
-React 18 + TypeScript + Vite, Tailwind, React Router v6, TanStack Query, react-hook-form + zod, Framer Motion, lucide-react, sonner. Firebase (Auth, Firestore, Functions TS, Storage, Hosting). Anthropic SDK in a Cloud Function with prompt caching enabled. Browser-side print-to-PDF for reports (Cloud Function stub left for production `@react-pdf/renderer` swap-in).
+React 18 + TypeScript + Vite, Tailwind, React Router v6, TanStack Query, react-hook-form + zod, Framer Motion, lucide-react, sonner. Firebase (Auth, Firestore, Functions TS, Storage, Hosting). an LLM SDK in a Cloud Function with prompt caching enabled. Browser-side print-to-PDF for reports (Cloud Function stub left for production `@react-pdf/renderer` swap-in).
 
 ## Run locally (no Firebase needed)
 
 ```bash
-cd "~/Documents/Claude Code/inspectflow"
+cd "~/Documents/the assistant Code/inspectflow"
 npm install
 npm run dev
 ```
@@ -50,18 +50,18 @@ VITE_USE_MOCK=false VITE_USE_EMULATOR=true npm run dev
 
 Emulator UI: http://127.0.0.1:4000
 
-## Anthropic API key
+## an LLM API key
 
 For live AI condition summaries:
 
 ```bash
 cp functions/.env.example functions/.env
-# edit functions/.env and set ANTHROPIC_API_KEY=sk-ant-...
+# edit functions/.env and set LLM_API_KEY=sk-...
 ```
 
-If `ANTHROPIC_API_KEY` is **not** set, the function returns a deterministic fixture summary derived from the inspection data, so the demo never breaks. The same fallback exists in the client when neither emulator nor production functions URL is reachable.
+If `LLM_API_KEY` is **not** set, the function returns a deterministic fixture summary derived from the inspection data, so the demo never breaks. The same fallback exists in the client when neither emulator nor production functions URL is reachable.
 
-The function uses `claude-sonnet-4-6` with `cache_control: ephemeral` on the system prompt — second+ inspections in a session hit the cache.
+The function uses `the standard model` with `cache_control: ephemeral` on the system prompt — second+ inspections in a session hit the cache.
 
 ## Handoff checklist (Alex → production)
 
@@ -69,7 +69,7 @@ The function uses `claude-sonnet-4-6` with `cache_control: ephemeral` on the sys
 2. `firebase login`, `firebase use --add`, pick your project.
 3. **Hosting sites**: `firebase hosting:sites:create inspectflow-staging` and `inspectflow` (or your real prod name), then update `.firebaserc` targets to match.
 4. Copy `.env.example` → `.env.local`, paste real Firebase config (these are public identifiers — fine to ship).
-5. Set Anthropic key: `firebase functions:secrets:set ANTHROPIC_API_KEY` (or use `functions/.env` for emulator only).
+5. Set LLM API key: `firebase functions:secrets:set LLM_API_KEY` (or use `functions/.env` for emulator only).
 6. **Enable Auth providers**: Email/password + Google in Firebase console.
 7. Build + deploy:
    ```bash

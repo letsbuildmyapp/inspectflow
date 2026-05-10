@@ -80,7 +80,7 @@ export function InspectionDetail() {
               {ins.aiSummary ? (
                 <div>
                   <p className="font-mono text-[15px] leading-relaxed whitespace-pre-wrap">{ins.aiSummary}</p>
-                  <p className="mono-eyebrow mt-3">cached: {formatDateTime(ins.aiSummaryCachedAt)} · model: claude-sonnet-4-6</p>
+                  <p className="mono-eyebrow mt-3">cached: {formatDateTime(ins.aiSummaryCachedAt)}</p>
                 </div>
               ) : (
                 <p className="text-sm text-ink/70 dark:text-paper/70 font-mono">No summary yet. Click "Generate summary" to run the Cloud Function (or fixture fallback if no API key set).</p>

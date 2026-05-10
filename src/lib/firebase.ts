@@ -1,6 +1,6 @@
 // Firebase initialization — reads VITE_USE_EMULATOR=true to point at local emulators.
 // All public Firebase config is fine in VITE_* (it's identifier, not secret).
-// IMPORTANT: secrets (Anthropic key, etc) live in functions/.env, never VITE_*.
+// IMPORTANT: secrets (LLM key, etc) live in functions/.env, never VITE_*.
 import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
 import { getAuth, connectAuthEmulator, type Auth } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator, type Firestore } from 'firebase/firestore';

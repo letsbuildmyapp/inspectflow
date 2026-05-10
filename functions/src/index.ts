@@ -1,7 +1,7 @@
 // InspectFlow Cloud Functions
 //
 // generateConditionSummary: HTTPS callable-style endpoint that takes an
-// inspectionId, loads the inspection from Firestore, calls Claude (with prompt
+// inspectionId, loads the inspection from Firestore, calls the LLM (with prompt
 // caching enabled on the system prompt) and stores the resulting summary back
 // on the inspection document. Falls back to a deterministic fixture summary
 // when ANTHROPIC_API_KEY is not configured, so the demo never breaks.
